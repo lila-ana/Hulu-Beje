@@ -4,10 +4,6 @@ import CustomButton from "../../Components/Common/CustomButton";
 import { Link } from "react-router-dom";
 
 export default function LandingPage() {
-  // const divStyle = {
-  //   backgroundImage: `url(${LandingPageImage})`,
-  //   // backgroundsize: "cover"
-  // };
 
   return (
     <div className="bg-no-repeat w-screen h-[100vh]" style={{ backgroundImage: "url('src/Assets/LandingPageImage (2).png')" }}>

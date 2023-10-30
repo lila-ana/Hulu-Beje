@@ -13,6 +13,7 @@ import productsReducer from '../Reducer/ProductsReducer';
 import { SelectDropdownreducer } from '../Reducer/selectDropdownReducer';
 import categoryReducer from '../Reducer/categoryreducer';
 import breadcrumbReducer from '../Reducer/breadCrumbReducer';
+import cartReducer from '../Reducer/cartReducer';
 
 const rootReducer = combineReducers({
   user: authReducer,
@@ -26,6 +27,8 @@ const rootReducer = combineReducers({
   select: SelectDropdownreducer,
   category: categoryReducer,
   bCrumb: breadcrumbReducer,
+  cart: cartReducer,
+
 });
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));

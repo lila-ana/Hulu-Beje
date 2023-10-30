@@ -43,7 +43,7 @@ export default function Orders() {
   };
 
   useEffect(() => {
-    dispatch(fetchAction("https://jsonplaceholder.typicode.com/users", {
+    dispatch(fetchAction("https://fakestoreapi.com/users", {
       method: 'GET',
     }));
   }, [dispatch]);
@@ -60,8 +60,10 @@ export default function Orders() {
           </div>
           <div className=" grid grid-cols-3 gap-[4px]">
           {displayedOngoingData && displayedOngoingData.map((item, index) => (
-              <div key={index} className="grid grid-cols-2 border-[1px] border-babyBlue rounded-sm font-quicksand p-3 mx-4 ">{item.name}{item.email}</div>
-              ))}
+            <div key={index} className="grid border-[1px] border-babyBlue rounded-sm font-quicksand p-3 mx-4 ">
+                <div>{item.username}</div>
+                <div>{item.email}</div>
+                </div>              ))}
           </div>
           <Pagination
               current={ongoingCurrentPage}
@@ -79,7 +81,10 @@ export default function Orders() {
           </div>
           <div className="grid grid-cols-3 gap-[4px]">
           {displayedCompletedData && displayedCompletedData.map((item, index) => (
-              <div key={index} className="grid grid-cols-2 border-[1px] border-babyBlue rounded-sm font-quicksand p-3 mx-4 ">{item.name}{item.email}</div>
+              <div key={index} className="grid border-[1px] border-babyBlue rounded-sm font-quicksand p-3 mx-4 ">
+                <div>{item.username}</div>
+                <div>{item.email}</div>
+                </div>
             ))}
           </div>
           <div className="text-white">

@@ -1,4 +1,4 @@
-import { ADD_PRODUCTS } from '../types';
+import { ADD_PRODUCTS, VIEW_PRODUCTS } from '../types';
 
 const initialState = {
   data: [],
@@ -13,6 +13,12 @@ const productsReducer = (state = initialState, action) => {
         ...state,
         isloding: true,
       };
+      case VIEW_PRODUCTS:
+        return {
+          ...state,
+          data:action.payload,
+          isloding: true,
+        };
     default:
       return state;
   } 

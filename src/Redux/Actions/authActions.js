@@ -14,6 +14,7 @@ const setPermissions = (permissions) => ({
 });
 
 const loginUser = (username, password) => {
+  
   return async (dispatch) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/login`, { username, password });
@@ -45,16 +46,3 @@ const loginUser = (username, password) => {
 export { loginUser };
 
 
-// import { LOGIN } from '../types';
-
-// export const Login = () => {
-//   // You can add authentication logic here
-
-//   console.log("hereS");
-  
-//   return {
-//     type: LOGIN,
-//     payload: { isAuthenticated: true },
-//   };
-  
-// };

@@ -5,6 +5,7 @@ import CustomButton from "./CustomButton";
 export default function CustomForm({ formFields, onSubmit, component, initialValues = {}, label  }) {
   const [form] = Form.useForm();
 
+
   return (
     <Form form={form} name="custom-form" onFinish={onSubmit} initialValues={initialValues}>
       {formFields.map((field, index) => (

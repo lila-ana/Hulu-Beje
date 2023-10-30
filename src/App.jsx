@@ -16,13 +16,9 @@ import SidebarProducts from './Pages/Sidebar Products/SidebarProducts';
 
 function App() {
 
-  export const checkUserPermission=(necassaryPermissions=[])=>{
-    let myPermissions= localStorage?.getItem('permissions')?.split(',');
-    return necassaryPermissions?.every((perm)=>{
-        return myPermissions?.includes(p)
-    })
+  
 
-}   Then     use this   =======>  { checkUserPermission(['view-escalation']) && (<createProduct></product>)}
+  // Then     use this   =======>  { checkUserPermission(['view-escalation']) && (<createProduct></product>)}
   
   const withRoleAuthorization = (Component, requiredRoles) => {
     function AuthorizedComponent(props) {
@@ -60,6 +56,12 @@ function App() {
         <Route path='/register' element={<RegistrationForm/>}></Route>
         <Route path='/productDetail/:id' element={<ProductDetail/>}></Route>
         <Route path='/productSubDetail/:id/:subId' element={<ProductSubDetails/>}></Route>
+        <Route path='/dashboard/overview' element={<Dashboard/>}></Route>
+        <Route path='/dashboard/accounts' element={<Accounts/>}></Route>
+        <Route path='/dashboard/orders' element={<Orders/>}></Route>
+        <Route path='/dashboard/categories' element={<Category/>}></Route>
+        <Route path='/dashboard/products' element={<SidebarProducts/>}></Route>
+        <Route path='/dashboard/settings' element={<Settings/>}></Route>
 
 
 

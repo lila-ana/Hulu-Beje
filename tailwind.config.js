@@ -10,6 +10,7 @@ export default {
         blueGrotto:"#189AB4",
         blueGreen:"#75E6DA",
         babyBlue:"#D4F1F4",
+        replace:"#4c6ec0",
         babyBlue_75: 'rgba(137,207,240, 0.50)'
       },
       fontFamily: {

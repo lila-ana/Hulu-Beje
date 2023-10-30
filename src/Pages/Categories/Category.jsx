@@ -1,7 +1,6 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
 import Layout from "../../Layout/Layout";
-import { useMemo } from "react";
 import CustomInput from "../../Components/Common/CustomInput";
 import CustomForm from "../../Components/Common/CustomForm";
 import DashboardHeader from "../../Layout/DashboardHeader";
@@ -10,10 +9,6 @@ import { CustomizablePostRequest } from '../../Redux/Actions/postActions';
 
 function Category({categoryAdd, CustomizablePostRequest}) {
   
-  const authMemo= useMemo(() => categoryAdd, [categoryAdd]);
-  const { data, loading, error } = useSelector((state) => state.fetch);
-
-
  const formFields = [
   {
     name: "CategoryName",
@@ -21,12 +16,12 @@ function Category({categoryAdd, CustomizablePostRequest}) {
     component: <CustomInput placeholder="Product Category" className="" type="text"/>
   }
  ]
-  const handleSubmit = () => {
+  const handleSubmit = (values) => {
     const postOptions = {
         method: 'post',
         url: 'api_endpoint',
         data: {
-          // Define your post data here
+          values
         },
         headers: {
           'Authorization': 'Bearer AccessToken',
@@ -46,7 +41,7 @@ function Category({categoryAdd, CustomizablePostRequest}) {
         </div>
         <div className="row-span-4 p-4 font-quicksand">
           <div className="font-quicksand py-4 sm:text-[14px] sm:text-18px] font-semibold ">Add Category</div>
-          <CustomForm className=" font-quicksand p-5" formFields={formFields} onSubmit={handleSubmit} initialValues={{ }} />
+          <CustomForm label="Add Category" className=" font-quicksand p-5" formFields={formFields} onSubmit={handleSubmit} initialValues={{ }} />
         </div>
       </div>
     </Layout>

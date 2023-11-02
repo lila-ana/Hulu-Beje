@@ -50,15 +50,11 @@ const SignIn = ({ loggedInUser, login}) => {
       component: <CustomCheckbox className="font-quicksand p-1 text-navyBlue" label="Keep me logged in" />
     }
   ];
-  // console.log("Form Fields", formValues);
-  
 
   const value ={
     "username":  formValues.username,
-    "password":  formValues.password
-  }
-  // console.log(value, "values");
-  
+    "password":  formValues.password,
+  }  
 
   return (
     <div className="grid grid-cols-2 w-full h-screen items-center justify-center">
@@ -86,8 +82,6 @@ const SignIn = ({ loggedInUser, login}) => {
 const mapStateToProps = (state) => {
   return {
     users: state.loginReducer.users,
-
-
   };
 };
 

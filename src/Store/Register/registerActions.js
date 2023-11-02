@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { API_BASE_URL } from '../../Config/URLs/Endpoint'
 import * as actionTypes from './registerActionTypes'
 
@@ -21,13 +22,16 @@ const registerFail = (error) => {
 
 //=========> REGISTER CRUD <========
 
-export const registration = () => {
+export const registration = (value) => {
     return (dispatch) => {
         dispatch(register())
         axios({
             method: 'post',
             url: `${API_BASE_URL}/auth/register`,
-            data: value
+            data: value,
+            header: {
+                "content-type" : "application/json"
+            }
         })
         .then((res)=> {
             dispatch(registerSuccess(res.data))

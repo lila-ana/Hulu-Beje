@@ -7,11 +7,12 @@ import SectionOne from "../Common/sectionOne";
 import { BiSolidLockOpenAlt } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { registration } from "../../Store/Register/registerActions";
+import { useEffect, useState } from "react";
 
 function RegistrationForm({ registered_user, registration }) {
   
-  const [registeredUser, setregisteredUser] = useState(null);
   const [formValues, setFormValues] = useState({});
+
   const formFields = [
     {
       name: "username",
@@ -23,6 +24,7 @@ function RegistrationForm({ registered_user, registration }) {
         <CustomInput
           prefix={<UserOutlined />}
           value={formValues.username}
+          onChange={(e) => setFormValues({ ...formValues, username: e.target.value })}
           placeholder="Username"
           className=""
           type="text"
@@ -42,7 +44,7 @@ function RegistrationForm({ registered_user, registration }) {
         <CustomInput
           prefix={<HiOutlineMail />}
           value={formValues.email}
-          onChange={(e) => setFormValues({ ...formValues, username: e.target.value })}
+          onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
           placeholder="E-mail"
           className=""
           type="email"
@@ -69,17 +71,26 @@ function RegistrationForm({ registered_user, registration }) {
       ),
     },
     {
-      name: "confirmPassword",
+      name: "confirmed_password",
+      dependencies: ['password'],
       rules: [
         { required: true, message: "Please confirm your password" },
-        { min: 6, message: "Passwords must match" },
+        { min: 6},
+        ({ getFieldValue }) => ({
+          validator(_, value) {
+            if (!value || getFieldValue('password') === value) {
+              return Promise.resolve();
+            }
+            return Promise.reject(new Error('The new password that you entered do not match!'));
+          },
+        }),
       ],
       component: (
         <Input.Password
           prefix={<BiSolidLockOpenAlt />}
-          value={formValues.password}
-          onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
-          placeholder="Password"
+          value={formValues.confirmed_password}
+          onChange={(e) => setFormValues({ ...formValues, confirmed_password: e.target.value })}
+          placeholder="Confirm Password"
           className="md:w-[400px]"
           iconRender={(visible) =>
             visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -89,30 +100,12 @@ function RegistrationForm({ registered_user, registration }) {
     },
   ];
 
-  useEffect (()=>{
-    registration()
-  })
-
-
-  // const handleSubmit = (values) => {
-  //   // e.preventDefault();
-  //   // form.validateFields((err, values) => {
-  //     // if (!err) {
-  //       const postOptions = {
-  //         method: "post",
-  //         url: `${API_BASE_URL}/auth/register`,
-  //         data: values, 
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: "",
-  //         },
-  //       };
-  //       window.location.replace('/home');
-  //       CustomizablePostRequest(postOptions);
-  //       console.log("values", values);
-  //     }
-  //   // });
-
+  const value = {
+    "username":  formValues.username,
+    "email":  formValues.email,
+    "password":  formValues.password,
+    "confirmed_password":  formValues.confirmed_password,
+  }
 
   return (
     <div className="grid grid-cols-2 w-full h-screen items-center justify-center">
@@ -129,7 +122,7 @@ function RegistrationForm({ registered_user, registration }) {
         <CustomForm
           label="Register"
           formFields={formFields}
-          onSubmit={handleSubmit}
+          onSubmit={()=>registration(value)}
           initialValues={{}}
         />
       </section>
@@ -145,7 +138,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    registration: () => dispatch(registration()),
+    registration: (value) => dispatch(registration(value)),
   };
 };
 

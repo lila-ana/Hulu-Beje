@@ -17,7 +17,7 @@ const userLogin = (state) => {
 const userLoggedInSuccess = (state, action) => {
     return {
         ...state,
-        users: action.data,
+        loggedInUser: action.data,
         loggedInUser_loading:false,
         loggedInUser_error:null
     }
@@ -41,6 +41,6 @@ export const loginReducer = (state = initialState, action) => {
             return userLoginFail(state, action)
         
         default: 
-            return state
+            return state;
     }
 }

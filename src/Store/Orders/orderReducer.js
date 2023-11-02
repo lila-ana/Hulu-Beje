@@ -51,7 +51,7 @@ const orderFail = (state, action) => {
 }
 
 export const orderReducer = (state = initialState, action) => {
-    switch (action.types) { 
+    switch (action.type) { 
         case actionTypes.START_ORDER:
             return orderStart(state);
         case actionTypes.ORDER_GET_SUCCESS:
@@ -62,7 +62,8 @@ export const orderReducer = (state = initialState, action) => {
             return orderDeleteSucess(state,action);
         case actionTypes.ORDER_FAIL:
             return orderFail(state,action);
-        
 
+        default:
+            return state;
     }
 }

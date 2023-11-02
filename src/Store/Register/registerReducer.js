@@ -40,6 +40,6 @@ export const registerReducer = ( state = initialState, action) => {
             return registerFail (state, action)
         
         default:
-            state
+            return state;
     }
 }

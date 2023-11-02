@@ -52,8 +52,8 @@ export const productDeletSuccess = (data)=>{
 
 export const productCreateSuccess=(data)=>{
     return {
-        type:actionTypes.PRODUCT_CREATE,
-        data:data
+        type: actionTypes.PRODUCT_CREATE,
+        data: data
     }
 }
 
@@ -186,16 +186,17 @@ export const deleteproduct =(id,allproducts=[])=>{
     }
 }
 
-export const productCreate=(
-  value,token 
-    )=>{
+export const productCreate = (value ) => {
     return (dispatch)=>{
         dispatch(productStart())
         axios({
-            url:`${API_BASE_URL}product`,
+            url:`${API_BASE_URL}/store/products`,
             method:'post',
             data:value,
-            headers: {"Authorization ":`Bearer ${token}` ,'Content-Type': 'multipart/form-data' },
+            headers: {
+                "content-type" : "multipart/form-data",
+                // "Authorization ":`Bearer ${token}` ,'Content-Type': 'multipart/form-data' 
+            },
         })
         .then((res)=>{
             console.log("Created Success product" , res.data);

@@ -18,6 +18,15 @@ const productStart = (state , action )=>{
     }
 }
 
+const productCreateSuccess = (state, action) => {
+    return {
+        ...state , 
+        products:action.data,
+        product_error:null,
+        product_loading:false
+    }
+}
+
 const productsGetSuccess= (state,action )=>{
     return {
         ...state , 
@@ -81,6 +90,8 @@ export const productReducer = (state = initialState , action)=>{
     switch (action.type){
         case actionTypes.PRODUCT_START:
             return productStart(state,action)
+        case actionTypes.PRODUCT_CREATE:
+            return productCreateSuccess(state,action)
         case actionTypes.PRODUCTS_GET:
             return productsGetSuccess(state,action)
         case actionTypes.PRODUCT_GET:

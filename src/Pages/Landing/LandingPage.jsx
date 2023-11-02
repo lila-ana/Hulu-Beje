@@ -1,5 +1,3 @@
-import React from "react";
-import LandingPageImage from '../../Assets/LandingPageImage.png';
 import CustomButton from "../../Components/Common/CustomButton";
 import { Link } from "react-router-dom";
 

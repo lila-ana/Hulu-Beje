@@ -4,7 +4,6 @@ import {MdOutlineManageAccounts} from 'react-icons/md'
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 import {FiSettings} from 'react-icons/fi'
 import {MdCategory} from 'react-icons/md'
-import {LoginOutlined} from '@ant-design/icons'
 
 
   

@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import HomeHeader from "../Home/HomeHeader";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAction } from "../../Redux/Actions/fetchActions";
 import HomeFooter from "../Home/HomeFooter";
 import { addToCart } from "../../Redux/Actions/cartActions";
 import ShoppingCartModal from "./ShoppingCartModal";
 import CustomButton from "../../Components/Common/CustomButton";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import HomeHeader from "../Home/HomeHeader";
+import { useEffect } from "react";
+import { fetchAction } from "../../Redux/Actions/fetchActions";
 
 export default function ProductSubDetails({ products }) {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.fetch.data);
+  const data = useSelector((state) => state.fetch);
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const ProductSubDetails = data ? [data.find((item) => item.id === Number(id))]: [];
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    // Open the modal
     setShowModal(true);
   };
 

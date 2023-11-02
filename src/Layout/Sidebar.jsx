@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { Link, useLocation} from "react-router-dom";
 import classNames from "classnames";
 import { DASHBOARD_SIDEBAR_LINKS } from "./SidebarData";
 import LOGO from '../Assets/logo.png'
@@ -28,13 +28,6 @@ const Sidebar = () => {
 
 function SidebarLink({ item }) {
   const { pathname } = useLocation();
-//   const id = useParams().id1
-// console.log("useParam", id);
-
-  // let projectId = pathname.split("/")[3];
-  // console.log(pathname);
-  
-
   return (
     <Link
       to={`/dashboard/${item.path}`}

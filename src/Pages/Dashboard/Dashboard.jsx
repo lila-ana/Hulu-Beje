@@ -1,4 +1,3 @@
-import React from "react";
 import Layout from '../../Layout/Layout'
 import DashboardHeader from "../../Layout/DashboardHeader";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';

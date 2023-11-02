@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { IoMdAddCircle, IoMdAddCircleOutline } from "react-icons/io";
-import { GrFormView, GrView } from "react-icons/gr";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { GrFormView} from "react-icons/gr";
 import DashboardHeader from "../../Layout/DashboardHeader";
 import CustomButton from "../../Components/Common/CustomButton";
 import Layout from "../../Layout/Layout";
-import { connect } from "react-redux";
-import { CustomizablePostRequest } from '../../Redux/Actions/postActions';
 import AddProducts from "./AddProducts";
 import ViewProducts from "./viewProducts";
+import { useState } from "react";
 
 
 export default function SidebarProducts() {

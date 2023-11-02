@@ -16,5 +16,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    eslint_disable_no_unused_vars: true
   },
 }

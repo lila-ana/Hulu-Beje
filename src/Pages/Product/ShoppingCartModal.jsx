@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Button } from 'antd'; // Import the modal components from Ant Design
+import { Modal } from 'antd'; // Import the modal components from Ant Design
 import { removeFromCart } from '../../Redux/Actions/cartActions';
 import CustomButton from '../../Components/Common/CustomButton';
 

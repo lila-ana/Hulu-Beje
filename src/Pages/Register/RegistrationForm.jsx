@@ -1,21 +1,17 @@
-import React from "react";
 import CustomInput from "../../Components/Common/CustomInput";
 import CustomForm from "../../Components/Common/CustomForm";
 import { connect } from "react-redux";
-import { CustomizablePostRequest } from "../../Redux/Actions/postActions";
-import { useMemo } from "react";
 import { Input } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone, UserOutlined } from "@ant-design/icons";
 import SectionOne from "../Common/sectionOne";
 import { BiSolidLockOpenAlt } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
-import { API_BASE_URL } from "../../Config/URLs/Endpoint";
+import { registration } from "../../Store/Register/registerActions";
 
-function RegistrationForm({ isRegistered, CustomizablePostRequest }) {
-  const RegisterMemo = useMemo(() => isRegistered, [isRegistered]);
-  console.log(RegisterMemo);
+function RegistrationForm({ registered_user, registration }) {
   
-
+  const [registeredUser, setregisteredUser] = useState(null);
+  const [formValues, setFormValues] = useState({});
   const formFields = [
     {
       name: "username",
@@ -26,6 +22,7 @@ function RegistrationForm({ isRegistered, CustomizablePostRequest }) {
       component: (
         <CustomInput
           prefix={<UserOutlined />}
+          value={formValues.username}
           placeholder="Username"
           className=""
           type="text"
@@ -44,6 +41,8 @@ function RegistrationForm({ isRegistered, CustomizablePostRequest }) {
       component: (
         <CustomInput
           prefix={<HiOutlineMail />}
+          value={formValues.email}
+          onChange={(e) => setFormValues({ ...formValues, username: e.target.value })}
           placeholder="E-mail"
           className=""
           type="email"
@@ -59,6 +58,8 @@ function RegistrationForm({ isRegistered, CustomizablePostRequest }) {
       component: (
         <Input.Password
           prefix={<BiSolidLockOpenAlt />}
+          value={formValues.password}
+          onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
           placeholder="Password"
           className="md:w-[400px]"
           iconRender={(visible) =>
@@ -67,52 +68,50 @@ function RegistrationForm({ isRegistered, CustomizablePostRequest }) {
         />
       ),
     },
-    // {
-    //   name: "confirmpassword",
-    //   rules: [
-    //     { required: true, message: "Please confirm your password" },
-    //     // {
-    //     //   validator: (rule, name, callback) => {
-    //     //     if (name && name !== form.getFieldName("password")) {
-    //     //       callback("Passwords do not match");
-    //     //     } else {
-    //     //       callback();
-    //     //     }
-    //     //   },
-    //     // },
-    //   ],
-    //   component: (
-    //     <Input.Password
-    //       placeholder="Confirm Password"
-    //       prefix={<BiSolidLockOpenAlt />}
-    //       className="md:w-[400px]"
-    //       iconRender={(visible) =>
-    //         visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-    //       }
-    //     />
-    //   ),
-    // }    
+    {
+      name: "confirmPassword",
+      rules: [
+        { required: true, message: "Please confirm your password" },
+        { min: 6, message: "Passwords must match" },
+      ],
+      component: (
+        <Input.Password
+          prefix={<BiSolidLockOpenAlt />}
+          value={formValues.password}
+          onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
+          placeholder="Password"
+          className="md:w-[400px]"
+          iconRender={(visible) =>
+            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+          }
+        />
+      ),
+    },
   ];
 
+  useEffect (()=>{
+    registration()
+  })
 
-  const handleSubmit = (values) => {
-    // e.preventDefault();
-    // form.validateFields((err, values) => {
-      // if (!err) {
-        const postOptions = {
-          method: "post",
-          url: `${API_BASE_URL}/auth/register`,
-          data: values, 
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "",
-          },
-        };
-        window.location.replace('/home');
-        CustomizablePostRequest(postOptions);
-        console.log("values", values);
-      }
-    // });
+
+  // const handleSubmit = (values) => {
+  //   // e.preventDefault();
+  //   // form.validateFields((err, values) => {
+  //     // if (!err) {
+  //       const postOptions = {
+  //         method: "post",
+  //         url: `${API_BASE_URL}/auth/register`,
+  //         data: values, 
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "",
+  //         },
+  //       };
+  //       window.location.replace('/home');
+  //       CustomizablePostRequest(postOptions);
+  //       console.log("values", values);
+  //     }
+  //   // });
 
 
   return (
@@ -140,13 +139,13 @@ function RegistrationForm({ isRegistered, CustomizablePostRequest }) {
 
 const mapStateToProps = (state) => {
   return {
-    isRegistered: state.register.data,
+    registered_user: state.registerReducer.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    CustomizablePostRequest: (data) => dispatch(CustomizablePostRequest(data)),
+    registration: () => dispatch(registration()),
   };
 };
 

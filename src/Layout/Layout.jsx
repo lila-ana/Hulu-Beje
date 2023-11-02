@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
@@ -6,7 +7,6 @@ const Layout = ({ children }) => {
       <Sidebar />
       <div className="col-span-10">
         <div className=" scrollbar-hide min-w-[680px] h-full p-10  overflow-auto ">
-          {/* <HorizontalBar/> */}
           {children}
         </div>
       </div>

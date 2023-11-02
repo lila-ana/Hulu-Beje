@@ -1,10 +1,10 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 import { useSelector, useDispatch } from 'react-redux';
 import { ReduxCheckBox } from '../../Redux/Actions/checkboxActions';
 import { Checkbox } from 'antd';
 
 const CustomCheckbox = ({ label, ...rest }) => {
-  const isChecked = useSelector((state) => state.checkbox.isChecked);
+  const isChecked = useSelector((state) => state.checkbox);
   const dispatch = useDispatch();
 
   const handleCheckboxChange = () => {

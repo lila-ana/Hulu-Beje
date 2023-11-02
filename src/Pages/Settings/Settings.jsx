@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import Layout from "../../Layout/Layout";
 import DashboardHeader from "../../Layout/DashboardHeader";
 import { fetchAction } from "../../Redux/Actions/fetchActions";

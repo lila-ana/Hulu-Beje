@@ -1,19 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAction } from "../../Redux/Actions/fetchActions";
-import { Popconfirm, Table } from "antd";
-import CustomButton from "../../Components/Common/CustomButton";
-import { API_BASE_URL } from "../../Config/URLs/Endpoint";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import { useEffect } from "react";
+import { Table } from "antd";
+import { getUserAccount } from "../../Store/Accounts/accountsActions";
+import { connect } from "react-redux";
 
-export default function UserAccount() {
-    const dispatch = useDispatch();
-    const data = useSelector((state) => state.fetch.data);
+function UserAccount({account_loading, accounts, getUserAccount}) {
+    
     
     useEffect(() => {
-      dispatch(fetchAction(`${API_BASE_URL}/auth/users`, {
-        method: 'GET',
-      }));
-    }, [dispatch]);
+      getUserAccount()
+    }, []);
   
     const columns = [
       {
@@ -35,33 +32,10 @@ export default function UserAccount() {
         title: 'Remark',
         dataIndex: 'remark',
         key: 'remark',
-        render: (text, record) => (
-          <div>
-            {text === 'Approve' ? (
-              <Popconfirm
-                title="Are you sure you want to revoke?"
-                onConfirm={() => handleRemarkClick(record, 'Revoke')}
-                okText="Revoke"
-                cancelText="Cancel"
-              >
-                <CustomButton label="Revoke" type="danger"/>
-              </Popconfirm>
-            ) : (
-              <Popconfirm
-                title="Are you sure you want to approve?"
-                onConfirm={() => handleRemarkClick(record, 'Approve')}
-                okText="Approve"
-                cancelText="Cancel"
-              >
-                <CustomButton label="Approve" type="primary"/>
-              </Popconfirm>
-            )}
-          </div>
-        ),
       }
     ];
   
-    const datas = data ? data?.map((item, index) => ({
+    const datas = accounts ? accounts?.map((item, index) => ({
       key: index, 
       username: item.username,
       email: item.email,
@@ -75,8 +49,21 @@ export default function UserAccount() {
               columns={columns}
               dataSource={datas}
               pagination={{ pageSize: 5 }} 
-
             />
         </div>
     );
 }
+const mapStateToProps = (state) => {
+  return {
+    account_loading: state.accountReducer.account_loading,
+    accounts: state.accountReducer.accounts
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserAccount: () => dispatch(getUserAccount()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserAccount);

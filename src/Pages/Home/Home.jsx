@@ -2,28 +2,27 @@ import React, { useEffect, useState } from "react";
 import HuluBejeLogo from "../../Assets/logo.png"
 import { BsTwitter } from "react-icons/bs";
 import { AiFillFacebook, AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { setOngoingCurrentPage, setOngoingItemsPerPage } from "../../Redux/Actions/paginationActions";
 import { fetchAction } from "../../Redux/Actions/fetchActions";
 import CustomButton from "../../Components/Common/CustomButton";
 import { Link } from "react-router-dom";
 import { Pagination } from "antd";
 import { API_BASE_URL } from "../../Config/URLs/Endpoint";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home({}) {
 
   const [user, setUser] = useState(null);
+
   let token=localStorage.getItem("access_token");
 
   const dispatch = useDispatch();
-    const { data } = useSelector((state) => state.fetch);
+    const data = useSelector((state) => state.fetch);
     
     const handleLogout= () => {
       localStorage.clear();
     }
     useEffect(() => {
- 
         axios
           .get(`${API_BASE_URL}/auth/user`, {
             headers: {

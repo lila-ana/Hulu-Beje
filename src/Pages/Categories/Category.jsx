@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { connect, useSelector } from "react-redux";
 import Layout from "../../Layout/Layout";
 import CustomInput from "../../Components/Common/CustomInput";
@@ -47,7 +48,7 @@ function Category({categoryAdd, CustomizablePostRequest}) {
     </Layout>
 
     );
-};
+}
 
 const mapStateToProps = (state) => {
   return {

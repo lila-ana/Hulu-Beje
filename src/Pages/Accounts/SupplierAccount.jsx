@@ -1,18 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAction } from "../../Redux/Actions/fetchActions";
-import { Popconfirm, Table } from "antd";
-import CustomButton from "../../Components/Common/CustomButton";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import { useEffect } from "react";
+import { Table } from "antd";
+import { getSupplierAccount} from "../../Store/Accounts/accountsActions";
+import { connect } from "react-redux";
 
-export default function SupplierAccount() {
-    const dispatch = useDispatch();
-    const data = useSelector((state) => state.fetch.data);
-    
-    useEffect(() => {
-      dispatch(fetchAction('https://jsonplaceholder.typicode.com/users', {
-        method: 'GET',
-      }));
-    }, [dispatch]);
+function SupplierAccount({account_loading, accounts, getSupplierAccount}) {
+
+  useEffect(() => {
+      getSupplierAccount()
+    }, []);
   
     const columns = [
       {
@@ -34,48 +31,44 @@ export default function SupplierAccount() {
         title: 'Remark',
         dataIndex: 'remark',
         key: 'remark',
-        render: (text, record) => (
-          <div>
-            {text === 'Approve' ? (
-              <Popconfirm
-                title="Are you sure you want to revoke?"
-                onConfirm={() => handleRemarkClick(record, 'Revoke')}
-                okText="Revoke"
-                cancelText="Cancel"
-              >
-                <CustomButton label="Revoke" type="danger"/>
-              </Popconfirm>
-            ) : (
-              <Popconfirm
-                title="Are you sure you want to approve?"
-                onConfirm={() => handleRemarkClick(record, 'Approve')}
-                okText="Approve"
-                cancelText="Cancel"
-              >
-                <CustomButton label="Approve" type="primary"/>
-              </Popconfirm>
-            )}
-          </div>
-        ),
+       
       }
     ];
-  
-    const datas = data ? data.map((item, index) => ({
+
+    console.log("Accounts",accounts);
+    
+    const datas = accounts ? accounts?.map((item, index) => ({
       key: index, 
       username: item.username,
       email: item.email,
       phone: item.phone,
       remark: item.remark,
     })) : [];
-  
+
+    console.log(accounts, "accounts");
+
     return (
         <div className="row-span-4 p-3">
             <Table
               columns={columns}
               dataSource={datas}
               pagination={{ pageSize: 5 }} 
-
             />
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    account_loading: state.accountReducer.account_loading,
+    accounts:state.accountReducer.accounts
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getSupplierAccount: () => dispatch(getSupplierAccount()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SupplierAccount);
